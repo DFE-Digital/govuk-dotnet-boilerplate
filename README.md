@@ -1,11 +1,12 @@
-# govuk-dotnet-bolierplate
+# govuk-dotnet-boilerplate
 This is a fork of the Jayson Taylor Clean Architecture Solution Template.
 https://github.com/jasontaylordev/CleanArchitecture
 
-This solution template for creates an ASP.NET MVC Front End (using Scott Allan's AddFeatureFolders  https://odetocode.com/blogs/scott/archive/2016/11/29/addfeaturefolders-and-usenodemodules-on-nuget-for-asp-net-core.aspx)  and ASP.NET Core following the principles of Clean Architecture. 
+This solution template creates an ASP.NET MVC Front End (using Scott Allan's AddFeatureFolders  https://odetocode.com/blogs/scott/archive/2016/11/29/addfeaturefolders-and-usenodemodules-on-nuget-for-asp-net-core.aspx)  and ASP.NET Core following the principles of Clean Architecture. 
 
 ## Technologies
 
+* [C#](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
 * [ASP.NET Core 6](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
 * [Entity Framework Core 6](https://docs.microsoft.com/en-us/ef/core/)
 * [MediatR](https://github.com/jbogard/MediatR)
