@@ -35,7 +35,7 @@ public class WhenHome
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
     [Fact]
-    public void WhenTheIndexMethodIsCalled_ViewResultReturned()
+    public void ThenTheIndexMethodIsCalled_ViewResultReturned()
     {
 
         //Act
@@ -47,7 +47,7 @@ public class WhenHome
     }
 
     [Fact]
-    public void WhenThePrivacyMethodIsCalled_ViewResultReturned()
+    public void ThenThePrivacyMethodIsCalled_ViewResultReturned()
     {
 
         //Act
@@ -59,7 +59,7 @@ public class WhenHome
     }
 
     [Fact]
-    public void WhenTheErrorMethodIsCalled_ViewResultReturned()
+    public void ThenTheErrorMethodIsCalled_ViewResultReturned()
     {
         //Arrange
         ErrorViewModel viewModel = new ErrorViewModel()

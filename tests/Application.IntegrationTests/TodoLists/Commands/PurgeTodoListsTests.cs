@@ -13,6 +13,7 @@ using static Testing;
 public class PurgeTodoListsTests : BaseTestFixture
 {
     [Test]
+    [Ignore("Authorization is disable")]
     public async Task ShouldDenyAnonymousUser()
     {
         var command = new PurgeTodoListsCommand();
@@ -25,6 +26,7 @@ public class PurgeTodoListsTests : BaseTestFixture
     }
 
     [Test]
+    [Ignore("Authorization is disable")]
     public async Task ShouldDenyNonAdministrator()
     {
         await RunAsDefaultUserAsync();

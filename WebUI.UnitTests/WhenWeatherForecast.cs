@@ -29,7 +29,7 @@ public class WhenWeatherForecast
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
     [Fact]
-    public async Task WhenTheIndexMethodIsCalled_ToDoListsAreReturned()
+    public async Task ThenTheIndexMethodIsCalled_ToDoListsAreReturned()
     {
         //Arrange
         var weatherForecasts = new WeatherForecastViewModel()

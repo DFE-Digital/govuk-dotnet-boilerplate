@@ -35,7 +35,7 @@ public class WhenTodo
 #pragma warning disable CS8601 // Possible null reference assignment.
 
     [Fact]
-    public async Task WhenTheIndexMethodIsCalled_ToDoListsAreReturned()
+    public async Task ThenTheIndexMethodIsCalled_ToDoListsAreReturned()
     {
         
         //Act
@@ -51,7 +51,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateToDoItem_TodoItemViewModelIsReturned()
+    public async Task ThenCreateToDoItem_TodoItemViewModelIsReturned()
     {
         //Arrange
         var todoList = _todosVm.Lists.FirstOrDefault();
@@ -72,7 +72,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenEditToDoItem_TodoItemViewModelIsReturned()
+    public async Task ThenEditToDoItem_TodoItemViewModelIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -97,7 +97,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateOrUpdateWithInvalidToDoItem_OriginalViewModelIsReturned()
+    public async Task ThenCreateOrUpdateWithInvalidToDoItem_OriginalViewModelIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -122,7 +122,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateOrUpdateAndCreateTodoItemFails_OriginalViewModelIsReturned()
+    public async Task ThenCreateOrUpdateAndCreateTodoItemFails_OriginalViewModelIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -148,7 +148,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateOrUpdateAndUpdateTodoItemFails_OriginalViewModelIsReturned()
+    public async Task ThenCreateOrUpdateAndUpdateTodoItemFails_OriginalViewModelIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -174,7 +174,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateOrUpdateAndCreateTodoItemSucceeds_NullIsReturned()
+    public async Task ThenCreateOrUpdateAndCreateTodoItemSucceeds_NullIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -198,7 +198,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenCreateOrUpdateAndUpdateTodoItemSucceeds_NullIsReturned()
+    public async Task ThenCreateOrUpdateAndUpdateTodoItemSucceeds_NullIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
@@ -222,7 +222,7 @@ public class WhenTodo
     }
 
     [Fact]
-    public async Task WhenDeleteTodoItemSucceeds_NullIsReturned()
+    public async Task ThenDeleteTodoItemSucceeds_NullIsReturned()
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();

@@ -46,43 +46,6 @@ public class ApiService : IApiService
         return weatherForecasts;
     }
 
-    public async Task<List<TodoItemBriefDto>> GetToDoItems()
-    {
-        List<TodoItemBriefDto> lstToDos = new();
-
-        GetTodoItemsWithPaginationQuery query = new GetTodoItemsWithPaginationQuery()
-        {
-            ListId = 1,
-            PageNumber = 1,
-            PageSize = 9999
-        };
-
-        var request = new HttpRequestMessage
-        {
-            Method = HttpMethod.Get,
-            RequestUri = new Uri(_client.BaseAddress + "api/TodoItems"),
-            Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(query), Encoding.UTF8),
-        };
-
-        using var response = await _client.SendAsync(request).ConfigureAwait(false);
-
-        response.EnsureSuccessStatusCode();
-
-        var data = await JsonSerializer.DeserializeAsync<PaginatedList<TodoItemBriefDto>>(await response.Content.ReadAsStreamAsync(), options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        if (data == null)
-        {
-            lstToDos.Add(new TodoItemBriefDto());
-        }
-        else
-        {
-            lstToDos = new List<TodoItemBriefDto>(data.Items);
-        }
-
-        return lstToDos;
-        
-    }
-
     public async Task<TodosVm> GetToDoLists()
     {
         using var response = await _client.GetAsync("/api/TodoLists", HttpCompletionOption.ResponseHeadersRead);
@@ -143,17 +106,10 @@ public class ApiService : IApiService
 
     public async Task<bool> DeleteTodoItem(int id)
     {
-        TodosVm todosVm = await GetToDoLists();
-        var list = todosVm.Lists.FirstOrDefault();
-        if (list == null)
-            return false;
-        if (list.Items.FirstOrDefault(x => x.Id == id) != null)
-        {
-            using var response = await _client.DeleteAsync(new Uri(_client.BaseAddress + $"api/TodoItems/{id}"));
-            if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                return true;
-        }
-
+        using var response = await _client.DeleteAsync(new Uri(_client.BaseAddress + $"api/TodoItems/{id}"));
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            return true;
+        
         return false;
     }
 }

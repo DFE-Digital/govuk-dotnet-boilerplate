@@ -7,7 +7,6 @@ namespace CleanArchitecture.WebUI.Services.Api;
 public interface IApiService
 {
     Task<List<WeatherForecast>> GetWeatherForecasts();
-    Task<List<TodoItemBriefDto>> GetToDoItems();
     Task<TodosVm> GetToDoLists();
     Task<bool> CreateTodoItem(int listId, string title);
     Task<bool> UpdateTodoItem(int id, string title, bool done);
