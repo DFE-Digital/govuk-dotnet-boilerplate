@@ -1,0 +1,49 @@
+﻿@model CleanArchitecture.WebUI.Features.TodoItems.TodoItemViewModel
+
+@{
+    ViewData["Title"] = "To Do Page";
+	var submitText = "Create";
+	if (!Model.IsCreating && Model.Id > 0)
+		submitText = "Update";
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+		<form asp-controller="Todo" asp-action="CreateOrUpdate" method="post">
+			<fieldset class="govuk-fieldset">
+				<h1 class="govuk-heading-l" >
+				  Enter your To Do
+				</h1>
+			 
+			  <input type="hidden" asp-for="IsCreating">
+			  <input type="hidden" asp-for="ListId">
+			  <input type="hidden" asp-for="Id">
+			  <div class="govuk-form-group">
+				<label class="govuk-label" for="title">
+				  Title
+				</label>
+				<input class="govuk-input" id="title" name="title" type="text" autocomplete="title" asp-for="Title">
+			  </div>
+
+			@if (!Model.IsCreating && Model.Id > 0)
+			{
+			<div class="govuk-form-group">
+				<div class="govuk-checkboxes" data-module="govuk-checkboxes">
+				  <div class="govuk-checkboxes__item">
+					<input class="govuk-checkboxes__input" id="done" name="done" type="checkbox" asp-for="Done">
+					<label class="govuk-label govuk-checkboxes__label" for="done">
+					  Done
+					</label>
+				  </div>
+				</div>
+			</div>
+			}
+			</fieldset>
+
+			<button type="submit" class="govuk-button" data-module="govuk-button">@submitText</button>
+		</form>
+        </div>
+    </div>
+</main>
+

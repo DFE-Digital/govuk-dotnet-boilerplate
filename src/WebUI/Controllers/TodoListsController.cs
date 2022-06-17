@@ -8,13 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.WebUI.Controllers;
 
-[Authorize]
+//[Authorize]
 public class TodoListsController : ApiControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<TodosVm>> Get()
     {
-        return await Mediator.Send(new GetTodosQuery());
+        try
+        {
+            return await Mediator.Send(new GetTodosQuery());
+        }
+        catch(Exception ex)
+        {
+            string message = ex.Message;
+            return new BadRequestObjectResult(message);
+        }
+        
     }
 
     [HttpGet("{id}")]

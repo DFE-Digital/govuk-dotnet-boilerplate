@@ -1,0 +1,50 @@
+﻿
+@model CleanArchitecture.Application.TodoLists.Queries.GetTodos.TodosVm
+@using CleanArchitecture.Application.TodoLists.Queries.GetTodos
+@using System.Linq;
+@{
+	ViewData["Title"] = "To Do Page";
+	TodoListDto? todoItem = Model.Lists.FirstOrDefault();
+	if (todoItem == null)
+	{
+		todoItem = new TodoListDto
+		{
+			Items = new List<TodoItemDto>()
+		};
+	}
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+			<table class="govuk-table">
+				<caption class="govuk-table__caption govuk-table__caption--m">To do list</caption>
+				<p>  
+				  <a asp-action="Create">Create New</a>  
+				</p>  
+				<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th scope="col" class="govuk-table__header">Title</th>
+					<th scope="col" class="govuk-table__header">Done</th>
+					<th scope="col" class="govuk-table__header">Action</th>
+					
+				</tr>
+				</thead>
+				<tbody class="govuk-table__body">
+					@foreach(var item in todoItem.Items)
+					{
+						<tr class="govuk-table__row">
+							<th scope="row" class="govuk-table__header">@item.Title</th>
+							<td class="govuk-table__cell">@item.Done.ToString()</td>
+							<td>  
+							  @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |  
+							  @Html.ActionLink("Details", "Details", new { id=item.Id }) |  
+							  @Html.ActionLink("Delete", "Delete", new { id=item.Id })  
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+        </div>
+    </div>
+</main>

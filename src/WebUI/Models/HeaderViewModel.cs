@@ -41,8 +41,9 @@ public class HeaderViewModel : IHeaderViewModel
         // Header links
         AddOrUpdateLink(new GovUk(GovUkHref, isLegacy: UseLegacyStyles));
         AddOrUpdateLink(new WeatherForecast("WeatherForecast", UseLegacyStyles ? "" : "govuk-header__link govuk-header__link--service-name"));
-        
-        
+        AddOrUpdateLink(new ToDoSelection("Todo", UseLegacyStyles ? "" : "govuk-header__link govuk-header__link--service-name"));
+
+
     }
 
     public void HideMenu()
