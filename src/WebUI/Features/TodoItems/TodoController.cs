@@ -24,23 +24,23 @@ public class TodoController : Controller
     {
         var result = await _apiService.GetToDoLists();
         TodoListDto? todoList = result.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
         return View("ToDoItem", new TodoItemViewModel()
         {
             IsCreating = true,
             ListId = todoList.Id,
         });
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
     }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
     public async Task<IActionResult> Edit(int id)
     {
         var result = await _apiService.GetToDoLists();
         TodoListDto? todoList = result.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault(x => x.Id == id);
-#pragma warning disable CS8601 // Possible null reference assignment.
+        ArgumentNullException.ThrowIfNull(todoItem);
         return View("ToDoItem", new TodoItemViewModel() 
         { 
             IsCreating = false, 
@@ -49,9 +49,8 @@ public class TodoController : Controller
             Title = todoItem.Title,
             Done = todoItem.Done
         });
-#pragma warning restore CS8601 // Possible null reference assignment.
+
     }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
 
     [HttpPost]

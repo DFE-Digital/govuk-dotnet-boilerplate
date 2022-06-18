@@ -31,9 +31,6 @@ public class WhenTodo
 
     }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8601 // Possible null reference assignment.
-
     [Fact]
     public async Task ThenTheIndexMethodIsCalled_ToDoListsAreReturned()
     {
@@ -43,7 +40,9 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodosVm;
+        ArgumentNullException.ThrowIfNull(model);
         model.Should().NotBeNull();
         model.Lists.Should().NotBeNull();
         model.Lists.Should().BeEquivalentTo(_todosVm.Lists);
@@ -55,6 +54,7 @@ public class WhenTodo
     {
         //Arrange
         var todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = true,
@@ -66,6 +66,7 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodoItemViewModel;
         model.Should().BeEquivalentTo(viewModel);
 
@@ -76,7 +77,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = false,
@@ -91,6 +94,7 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodoItemViewModel;
         model.Should().BeEquivalentTo(viewModel);
 
@@ -101,7 +105,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = false,
@@ -116,6 +122,7 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodoItemViewModel;
         model.Should().BeEquivalentTo(viewModel);
 
@@ -126,7 +133,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = true,
@@ -142,6 +151,7 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodoItemViewModel;
         model.Should().BeEquivalentTo(viewModel);
 
@@ -152,7 +162,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = false,
@@ -168,6 +180,7 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodoItemViewModel;
         model.Should().BeEquivalentTo(viewModel);
 
@@ -178,7 +191,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = true,
@@ -202,7 +217,9 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
         TodoItemViewModel viewModel = new()
         {
             IsCreating = false,
@@ -226,8 +243,10 @@ public class WhenTodo
     {
         //Arrange
         TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
         TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
-        
+        ArgumentNullException.ThrowIfNull(todoItem);
+
         int deleteTodoItem = 0;
         _mockApiService.Setup(x => x.DeleteTodoItem(It.IsAny<int>()))
             .Callback( () => deleteTodoItem++ )
@@ -238,12 +257,10 @@ public class WhenTodo
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as TodosVm;
-        model.Should().NotBeNull();
         deleteTodoItem.Should().Be(1);
 
     }
 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore CS8601 // Possible null reference assignment.
 }

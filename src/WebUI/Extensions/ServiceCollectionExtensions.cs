@@ -33,9 +33,8 @@ public static class ServiceCollectionExtensions
     {
         _ = serviceCollection.AddTransient(s =>
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            var settings = s.GetService<IOptions<ApiOptions>>().Value;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            var settings = s.GetService<IOptions<ApiOptions>>()?.Value;
+            ArgumentNullException.ThrowIfNull(settings);
 
             var clientBuilder = new HttpClientBuilder()
                 .WithDefaultHeaders()

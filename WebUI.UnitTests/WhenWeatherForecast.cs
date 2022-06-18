@@ -26,8 +26,6 @@ public class WhenWeatherForecast
 
     }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-
     [Fact]
     public async Task ThenTheIndexMethodIsCalled_ToDoListsAreReturned()
     {
@@ -42,11 +40,13 @@ public class WhenWeatherForecast
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as WeatherForecastViewModel;
         model.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(model);
         model.WeatherForecasts.Should().NotBeNull();
         model.WeatherForecasts.Should().BeEquivalentTo(weatherForecasts.WeatherForecasts);
         
     }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
 }

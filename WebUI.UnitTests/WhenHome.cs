@@ -32,8 +32,6 @@ public class WhenHome
 
     }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-
     [Fact]
     public void ThenTheIndexMethodIsCalled_ViewResultReturned()
     {
@@ -72,11 +70,10 @@ public class WhenHome
 
         //Assert
         viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
         var model = viewResult.Model as ErrorViewModel;
         model.Should().NotBeNull();
         model.Should().BeEquivalentTo(viewModel);
 
     }
-
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
 }
