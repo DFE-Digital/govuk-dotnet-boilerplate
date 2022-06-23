@@ -1,8 +1,8 @@
 # govuk-dotnet-boilerplate
-This is a fork of the Jayson Taylor Clean Architecture Solution Template.
+This is a clone of the Jayson Taylor's Clean Architecture Solution Template with the SPA front end replaced with an ASP.NET MVC Front End.
 https://github.com/jasontaylordev/CleanArchitecture
 
-This solution template creates an ASP.NET MVC Front End (using Scott Allan's AddFeatureFolders  https://odetocode.com/blogs/scott/archive/2016/11/29/addfeaturefolders-and-usenodemodules-on-nuget-for-asp-net-core.aspx)  and ASP.NET Core following the principles of Clean Architecture. 
+This solution template creates an ASP.NET MVC Front End (using Scott Allan's Add Feature Folders https://odetocode.com/blogs/scott/archive/2016/11/29/addfeaturefolders-and-usenodemodules-on-nuget-for-asp-net-core.aspx ) and ASP.NET Core projects following the principles of Clean Architecture. 
 
 ## Technologies
 
@@ -14,16 +14,6 @@ This solution template creates an ASP.NET MVC Front End (using Scott Allan's Add
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [xUnit](https://xunit.net/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
-## Getting Started
-
-The easiest way to get started is to install the [NuGet package](https://www.nuget.org/packages/Clean.Architecture.Solution.Template) and run `dotnet new ca-sln`:
-
-1. Install the latest [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
-2. Install the latest [Node.js LTS](https://nodejs.org/en/)
-3. Run `dotnet new --install Clean.Architecture.Solution.Template` to install the project template
-4. Create a folder for your solution and cd into it (the template will use it as project name)
-5. Run `dotnet new ca-sln` to create a new project
-6. Navigate to `src/WebUI` and launch the project using `dotnet run`
 
 ### Database Configuration
 
@@ -32,10 +22,16 @@ The template is configured to use an in-memory database by default. This ensures
 If you would like to use SQL Server, you will need to update **WebUI/appsettings.json** as follows:
 
 ```json
+  "UseSqlServerDatabase": true,
+```
+
+If you would like to use Postgresql, you will need to update **WebUI/appsettings.json** as follows:
+
+```json
   "UseInMemoryDatabase": false,
 ```
 
-Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid SQL Server instance. 
+Verify that the **DefaultConnection** connection string within **appsettings.json** points to a valid database instance. 
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
