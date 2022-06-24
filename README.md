@@ -14,19 +14,42 @@ This solution template creates an ASP.NET MVC Front End (using Scott Allan's Add
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [xUnit](https://xunit.net/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
+### Getting Started
+* Clone the repository on your local pc.
+* Open the powershell console, then cd to the root folder of the cloned repository 
+* Create a local nuget package with the command: dotnet pack .\nuget.csproj
+* Install the nuget package with the command: dotnet new -i .\DfeCleanArchitectureTemplate.1.0.0.nupkg
+
+This should have installed the template locally.
+
+* Create a folder for your new solution and cd into it (the template will use it as project name)
+* Run dotnet new ca-sln to create a new project
+* Navigate to src/WebUI and launch the project using dotnet run
+
+(For reference: https://medium.com/@stoyanshopov032/create-dotnet-new-template-with-multiple-projects-5df240ed81b4)
 
 ### Database Configuration
 
-The template is configured to use an in-memory database by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. SQL Server).
+The template is configured to use an in-memory database by default. This ensures that all users will be able to run the solution without needing to set up additional infrastructure (e.g. SQL Server). The **WebUI/appsettings.json** is set as follows:
+
+```json
+  "UseInMemoryDatabase": true,
+```
 
 If you would like to use SQL Server, you will need to update **WebUI/appsettings.json** as follows:
 
+```json
+  "UseInMemoryDatabase": false,
+```
 ```json
   "UseSqlServerDatabase": true,
 ```
 
 If you would like to use Postgresql, you will need to update **WebUI/appsettings.json** as follows:
 
+```json
+  "UseInMemoryDatabase": false,
+```
 ```json
   "UseInMemoryDatabase": false,
 ```

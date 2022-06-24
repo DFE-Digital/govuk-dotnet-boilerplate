@@ -1,17 +1,17 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "JasonTaylorDev",
+  "author": "Martin Belton / JasonTaylorDev",
   "classifications": [
     "Web",
-    "SPA",
+    "MVC",
     "ASP.NET",
     "Clean Architecture"
   ],
-  "name": "Clean Architecture Solution",
-  "description":  "This is a test.",
+  "name": "Dfe Clean Architecture Solution",
+  "description":  "Dfe Clean Architecture Solution using MVC Fron End.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
-  "shortName": "ca-sln",
+  "shortName": "dfeca-sln",
   "tags": {
     "language": "C#",
     "type": "project"
