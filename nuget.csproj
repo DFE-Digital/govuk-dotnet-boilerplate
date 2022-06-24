@@ -21,12 +21,10 @@
     <Version>1.0.0</Version>
     <PackageId>DfeCleanArchitectureTemplate</PackageId>
     <Title>DFE Clean Architecture Template</Title>
-    <Company>DFE</Company>
+    <Company>Dept for Education</Company>
     <Authors>Jason Taylor, Martin Belton</Authors>
-    <Copyright>DFE © 2020</Copyright>
     <Description>A ready-to-use template for ASP.NET Core with repositories, services, models mapping, DI and StyleCop warnings fixed.</Description>
     <PackageTags>c#;asp.net;core;template;web</PackageTags>
-    <PackageCopyright>DFE © 2020</PackageCopyright>
     <PackageProjectUrl>https://github.com/NikolayIT/ASP.NET-Core-Template</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>

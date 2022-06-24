@@ -23,7 +23,7 @@ This solution template creates an ASP.NET MVC Front End (using Scott Allan's Add
 This should have installed the template locally.
 
 * Create a folder for your new solution and cd into it (the template will use it as project name)
-* Run dotnet new ca-sln to create a new project
+* Run dotnet new dfeca-sln to create a new project
 * Navigate to src/WebUI and launch the project using dotnet run
 
 (For reference: https://medium.com/@stoyanshopov032/create-dotnet-new-template-with-multiple-projects-5df240ed81b4)

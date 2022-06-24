@@ -8,7 +8,7 @@
     "Clean Architecture"
   ],
   "name": "Dfe Clean Architecture Solution",
-  "description":  "Dfe Clean Architecture Solution using MVC Fron End.",
+  "description":  "Dfe Clean Architecture Solution using MVC Front End.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
   "shortName": "dfeca-sln",
