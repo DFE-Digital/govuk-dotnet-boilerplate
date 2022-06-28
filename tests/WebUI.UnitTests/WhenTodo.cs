@@ -1,0 +1,266 @@
+using AutoFixture;
+using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using CleanArchitecture.WebUI.Features.TodoItems;
+using CleanArchitecture.WebUI.Services.Api;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+
+namespace WebUI.UnitTests;
+
+public class WhenTodo
+{
+    private readonly Fixture _fixture;
+    private readonly Mock<ILogger<TodoController>> _mockLogger;
+    private readonly Mock<IApiService> _mockApiService;
+    private readonly TodosVm _todosVm;
+    private readonly TodoController _sut;
+
+    public WhenTodo()
+    {
+
+        _mockLogger = new Mock<ILogger<TodoController>>();
+        _mockApiService = new Mock<IApiService>();
+
+        _fixture = new Fixture();
+        _todosVm = _fixture.Create<TodosVm>();
+        _mockApiService.Setup(x => x.GetToDoLists()).Returns(Task.FromResult(_todosVm));
+
+        _sut = new TodoController(_mockApiService.Object, _mockLogger.Object);
+
+    }
+
+    [Fact]
+    public async Task ThenTheIndexMethodIsCalled_ToDoListsAreReturned()
+    {
+        
+        //Act
+        var viewResult = await _sut.Index() as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodosVm;
+        ArgumentNullException.ThrowIfNull(model);
+        model.Should().NotBeNull();
+        model.Lists.Should().NotBeNull();
+        model.Lists.Should().BeEquivalentTo(_todosVm.Lists);
+        model.PriorityLevels.Should().BeEquivalentTo(_todosVm.PriorityLevels);
+    }
+
+    [Fact]
+    public async Task ThenCreateToDoItem_TodoItemViewModelIsReturned()
+    {
+        //Arrange
+        var todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = true,
+            ListId = todoList.Id,
+        };
+
+        //Act
+        var viewResult = await _sut.Create() as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodoItemViewModel;
+        model.Should().BeEquivalentTo(viewModel);
+
+    }
+
+    [Fact]
+    public async Task ThenEditToDoItem_TodoItemViewModelIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = false,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = todoItem.Title,
+            Done = todoItem.Done
+        };
+
+        //Act
+        var viewResult = await _sut.Edit(todoItem.Id) as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodoItemViewModel;
+        model.Should().BeEquivalentTo(viewModel);
+
+    }
+
+    [Fact]
+    public async Task ThenCreateOrUpdateWithInvalidToDoItem_OriginalViewModelIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = false,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = string.Empty,
+            Done = todoItem.Done
+        };
+
+        //Act
+        var viewResult = await _sut.CreateOrUpdate(viewModel) as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodoItemViewModel;
+        model.Should().BeEquivalentTo(viewModel);
+
+    }
+
+    [Fact]
+    public async Task ThenCreateOrUpdateAndCreateTodoItemFails_OriginalViewModelIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = true,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = todoItem.Title,
+            Done = todoItem.Done
+        };
+        _mockApiService.Setup(x => x.CreateTodoItem(It.IsAny<int>(),It.IsAny<string>())).Returns(Task.FromResult(false));
+
+        //Act
+        var viewResult = await _sut.CreateOrUpdate(viewModel) as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodoItemViewModel;
+        model.Should().BeEquivalentTo(viewModel);
+
+    }
+
+    [Fact]
+    public async Task ThenCreateOrUpdateAndUpdateTodoItemFails_OriginalViewModelIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = false,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = todoItem.Title,
+            Done = todoItem.Done
+        };
+        _mockApiService.Setup(x => x.UpdateTodoItem(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(false));
+
+        //Act
+        var viewResult = await _sut.CreateOrUpdate(viewModel) as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodoItemViewModel;
+        model.Should().BeEquivalentTo(viewModel);
+
+    }
+
+    [Fact]
+    public async Task ThenCreateOrUpdateAndCreateTodoItemSucceeds_NullIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = true,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = todoItem.Title,
+            Done = todoItem.Done
+        };
+        _mockApiService.Setup(x => x.CreateTodoItem(It.IsAny<int>(), It.IsAny<string>())).Returns(Task.FromResult(true));
+
+        //Act
+        var viewResult = await _sut.CreateOrUpdate(viewModel) as ViewResult;
+
+        //Assert
+        viewResult.Should().BeNull();
+        
+    }
+
+    [Fact]
+    public async Task ThenCreateOrUpdateAndUpdateTodoItemSucceeds_NullIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+        TodoItemViewModel viewModel = new()
+        {
+            IsCreating = false,
+            Id = todoItem.Id,
+            ListId = todoList.Id,
+            Title = todoItem.Title,
+            Done = todoItem.Done
+        };
+        _mockApiService.Setup(x => x.UpdateTodoItem(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(true));
+
+        //Act
+        var viewResult = await _sut.CreateOrUpdate(viewModel) as ViewResult;
+
+        //Assert
+        viewResult.Should().BeNull();
+
+    }
+
+    [Fact]
+    public async Task ThenDeleteTodoItemSucceeds_NullIsReturned()
+    {
+        //Arrange
+        TodoListDto? todoList = _todosVm.Lists.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoList);
+        TodoItemDto? todoItem = todoList.Items.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(todoItem);
+
+        int deleteTodoItem = 0;
+        _mockApiService.Setup(x => x.DeleteTodoItem(It.IsAny<int>()))
+            .Callback( () => deleteTodoItem++ )
+            .Returns(Task.FromResult(true));
+
+        //Act
+        var viewResult = await _sut.Delete(todoItem.Id) as ViewResult;
+
+        //Assert
+        viewResult.Should().NotBeNull();
+        ArgumentNullException.ThrowIfNull(viewResult);
+        var model = viewResult.Model as TodosVm;
+        deleteTodoItem.Should().Be(1);
+
+    }
+
+}

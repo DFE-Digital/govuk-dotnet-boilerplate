@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">
+                Put the name of your service here <a href="https://www.gov.uk/service-manual/design/naming-your-service">Details</a>
+            </h1>
+            <p class="govuk-body">
+                First line of text.
+            </p>
+            <p class="govuk-body">
+                Second line of text.
+            </p>
+            <p class="govuk-body">
+                Third line of text.
+            </p>
+
+			<div class="govuk-details__text">
+                Message worthy of note.
+            </div>
+
+			<br />
+			<br />
+
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+              <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Important
+                </h2>
+              </div>
+              <div class="govuk-notification-banner__content">
+                <p class="govuk-notification-banner__heading">
+                  An important message!
+                </p>
+             </div>
+            </div>
+
+            <a asp-controller="Home" asp-action="Index" class="govuk-button" data-module="govuk-button">Start now ></a>
+            
+        </div>
+    </div>
+</main>
